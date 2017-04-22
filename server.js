@@ -16,8 +16,8 @@ flag = false;
 var serialPort;
 var portName = '/dev/ttyACM0';
 var dirn = 'thumbnail';
-var cameraNo = '16401446';
-
+//var cameraNo = '16401446';
+var cameraNo = '17042613';
 
 app.use(bodyParser.urlencoded({extended: true})); app.use(bodyParser.json()); 
 app.use(express.static(__dirname));
@@ -61,7 +61,7 @@ io.on('connection', function (socket) {
 						var d = Date.now()
 						fs1.renameSync('/root/flycapture/images/'+cameraNo+'-0.tiff', '/root/flycapture/images/'+d+'.tiff')
 						exec('/root/flycapture/bin/BinnedImageEx', function(err, stdo, stde){});
-						exec('/root/flycapture/convert -thumbnail 200 images/'+d+'.tiff thumbnail/'+d+'.png');
+						exec('convert -thumbnail 200 /root/flycapture/images/'+d+'.tiff /root/flycapture/thumbnail/'+d+'.png');
 					}
 				});
 			}

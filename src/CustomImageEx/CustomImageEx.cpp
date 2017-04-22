@@ -1,4 +1,4 @@
-//=============================================================================
+ThemePark.//=============================================================================
 // Copyright © 2008 Point Grey Research, Inc. All Rights Reserved.
 //
 // This software is the confidential and proprietary information of Point
@@ -43,8 +43,7 @@ void PrintBuildInfo()
 }
 
 void PrintCameraInfo( CameraInfo* pCamInfo )
-{
-	cout << endl;
+{	cout << endl;
 	cout << "*** CAMERA INFORMATION ***" << endl;
 	cout << "Serial number -" << pCamInfo->serialNumber << endl;
 	cout << "Camera model - " << pCamInfo->modelName << endl;
@@ -76,7 +75,7 @@ int main(int /*argc*/, char** /*argv*/)
 	//PrintBuildInfo();
 
 	const Mode k_fmt7Mode = MODE_0;
-	const PixelFormat k_fmt7PixFmt = PIXEL_FORMAT_MONO8;
+	const PixelFormat k_fmt7PixFmt = PIXEL_FORMAT_RAW8;
 	const int k_numImages = 100;
 
 	Error error;
