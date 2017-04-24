@@ -130,14 +130,14 @@
 		}
 		else if($scope.focusMode == 'COURSE'){
 			document.getElementById('focus-fine').style.display = "";
-            document.getElementById('focus-course').style.display = "none";
+            		document.getElementById('focus-course').style.display = "none";
 			$scope.focusMode = 'FINE';
 		}
 	};
 
     }])
 
-	.controller('ImageController', ['$scope', '$http', function($scope, $http){
+	.controller('ImageController', ['$scope', '$http', '$window', function($scope, $http, $window){
 		$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
 			$http.get('/api/getImages').then(
 				function successCall(response){
@@ -147,4 +147,40 @@
 				}
 			);
 		});
+
+		$scope.add_remove_files = {};
+
+		$scope.select_deselect = function(filename){
+			var id = filename.substring(0, filename.indexOf('.'))
+			var element = document.getElementById(id);
+			if(element.classList.contains("img-selected-border")){
+				element.classList.remove("img-selected-border");
+				delete $scope.add_remove_files[id];
+			}
+			else{
+				element.classList.add("img-selected-border");
+				$scope.add_remove_files[id] = id;
+			}
+		};
+
+		$scope.download_images = function(){
+			console.log(Object.keys($scope.add_remove_files));
+			$http.post('/api/downloadImages', Object.keys($scope.add_remove_files))
+				.success(function(data){
+					console.log("got back");
+					var win = window.open('/api/imageZip','','width=, height=, resizable=no');
+					win.resizeTo(0,0);
+					win.moveTo(0,window.screen.availHeight+10);
+					win.close();
+				})
+		};
+
+		$scope.delete_images = function(){
+			$http.post('/api/deleteImages', Object.keys($scope.add_remove_files))
+				.success(function(data){
+					console.log("deleted the images");
+					$window.location.reload();
+				})
+		};
+
 	}]);

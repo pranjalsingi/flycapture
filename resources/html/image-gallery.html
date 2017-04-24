@@ -19,14 +19,14 @@
                 <p>Robert - Images - April 17, 2017</p>
             </div>
             <div class="col span-1-of-12 icon-box">
-                <p class="small">Select</p>
+                <p class="small ">Select all</p>
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
-                <i class="ion-ios-cloud-download-outline icon-small"></i>
+                <i class="ion-ios-cloud-download-outline icon-small" ng-click="download_images()"></i>
                 <span class="tooltiptext">Download Images</span>
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
-                <i class="ion-ios-trash-outline icon-small"></i>
+                <i class="ion-ios-trash-outline icon-small" ng-click="delete_images()"></i>
                 <span class="tooltiptext">Trash images</span>
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
@@ -70,8 +70,8 @@
             <a tabindex="1"><img src="resources/img/gallery/RABBIT%20TONGUE%2020X%20IV.png"></a>
 -->
             <!--		<span class="closed">+</span>-->
-            <a tabindex="1"  ng-repeat="filename in filenames">
-                <img src="/./../thumbnail/{{filename}}" />
+            <a tabindex="1"  ng-repeat="filename in filenames" ondblclick="console.log('hi')" >
+                <img src="/./../thumbnail/{{filename}}" id="{{filename.substring(0, filename.indexOf('.'))}}" ng-click="select_deselect(filename)" />
             </a>
             <span class="closed-layer"></span>
         </div>

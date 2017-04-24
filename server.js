@@ -6,6 +6,7 @@ var path = 	require('path');
 var mime = 	require('mime');
 var fs = 	require('fs');
 var fs1 = 	require('fs');
+var rimraf = require('rimraf');
 var socketio = require('socket.io');
 var SerialPort = require("serialport");
 
@@ -148,30 +149,78 @@ io.on('connection', function (socket) {
 			if (err){
 				//Reply back with some error
 			}
-			/*filenames.forEach(function(filename){
-				fs.readFile(dirn+'/'+filename, 'base64', function(err, buff){
-					sendImage(buff);
-				});
-			});*/
 			res.json(filenames);
 		})
 
 	});
 
-	app.get('/api/downloadImages', function(req, res){
+	app.post('/api/downloadImages', function(req, res){
 		console.log("Request to download images");
-		exec('zip -r /root/flycapture/images.zip /root/flycapture/images/', function(err, stdo, stde){
-                                        if(err != null){
-                                                console.log('Images Zip didn\'t generated' +err)
-                                                res.status(404).end();
-                                        }
-                                        else {
-                                                var d = new Date();
-                                                var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
-                                                res.download(__dirname + '/images.zip', name);
-                                        }
-        			});
+		console.log("incoming", req.body);
+		var files = req.body;
+		fs.mkdirSync('./tempImages');
+
+		function callback(){
+			exec('zip -r /root/flycapture/tempImages.zip /root/flycapture/tempImages/', function(err, stdo, stde){
+				if(err != null){
+								console.log('temp Images Zip didn\'t generated' +err)
+									res.status(404).end();
+				}
+				else {
+					var file = __dirname + '/tempImages.zip';
+					rimraf('./tempImages', function () { 
+						console.log('done removing temp'); 
+					});
+
+					var d = new Date();
+					var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
+					/*res.download('./tempImages.zip', name, function(err){
+						if(err){
+							console.log("error occured in downlading");
+						}
+						else{
+							console.log(res.headersSent);
+						}
+					});*/
+					/*res.attachment(file);
+					var filestream = fs.createReadStream(file);
+					filestream.pipe(res);*/
+					res.json();
+				}
+			});
+		}
+
+		var counter = 0;
+		files.forEach(function(file){
+			var changedName = file+'.tiff';
+			var targetFile = 'tempImages/'+changedName;
+			var sourceFile = 'images/'+changedName;
+			fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
+			counter++;
+			if(counter == files.length){callback();}
+		});
 	});
+
+	app.post('/api/deleteImages', function(req, res){
+		console.log("Request to delete images");
+		console.log("incoming", req.body);
+		var files = req.body;
+		files.forEach(function(file){
+			var changedTiff = file+'.tiff';
+			var changedPng = file+'.png';
+			fs.unlinkSync('./images/'+changedTiff);
+			fs.unlinkSync('./thumbnail/'+changedPng);
+		});
+		res.json();
+	});
+
+	app.get('/api/imageZip', function(req, res){
+		console.log("Request to download image zip");
+		var d = new Date();
+		var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
+		res.download('./tempImages.zip', name);
+        });
+
 
 	app.get('/api/downloadTimeLapse', function(req, res){
 		console.log("Request to download time lapse");
