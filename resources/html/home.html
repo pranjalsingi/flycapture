@@ -4,7 +4,7 @@
         <!-- Live Image -->
         <div class="col span-3-of-4">
             <div class="live-image">
-                <img src="resources/img/C.elegans.jpg" id="uploaded-image" class="img-responsive" alt="Live Image" />
+                <img src="resources/img/Algea.jpg" id="uploaded-image" class="img-responsive" alt="Live Image" />
             </div>
         </div>
         <div class="col span-1-of-4">
@@ -100,42 +100,6 @@
 
 
             <!-- Focus Selection -->
-            <!--
-                <div class="row clearfix focus" id="focus-fine">
-                    <div class="icon-box">
-                            <i class="ion-qr-scanner icon-small"></i>
-                    </div>
-                    <div class="icon-box">
-                        <button class="button" onmousedown="focusMove('1Q')" onmouseup="focusStop('W')"><span class="ion-ios-arrow-up icon-big"></span></button>
-                    </div>
-                    <div class="icon-box slider">
-                        <div ng-click="changeFocus()">
-                            <p>
-                                {{focusMode}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="">
-                        <button class="button" onmousedown="focusMove('2Q')" onmouseup="focusStop('W')"><span class="ion-ios-arrow-down icon-big"></span></button>
-                    </div>
-                </div>
-                <div class="row" id="focus-course" style="display: none;">
-                    <div class="">
-                        <button class="button" onmousedown="focusMove('3Q')" onmouseup="focusStop('W')"></button>
-                    </div>
-                    <div class="">
-                        <div ng-click="changeFocus()">
-                            <p>
-                                {{focusMode}}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="">
-                        <button class="button" onmousedown="focusMove('4Q')" onmouseup="focusStop('W')"></button>
-                    </div>
-                </div>
-
-    -->
             <div class="row clearfix focus" id="focus-fine">
                 <div class="icon-box">
                     <i class="ion-qr-scanner icon-small"></i>
@@ -193,32 +157,18 @@
             <!-- Live Preview Image Capture -->
             <div class="row clearfix">
                 <div class="capture">
-                    <div class="col span-1-of-3" id="live-video">
+                    <div class="col span-2-of-7" id="live-video">
                         <button class="button-wide" ng-click="liveVideo(true)" id="but1"><span class="ion-ios-eye-outline icon-bigger"></span></button>
                     </div>
-                    <div class="col span-1-of-3" id="stop-video" style="display:none">
+                    <div class="col span-2-of-7" id="stop-video" style="display:none">
                         <button class="button-wide highlight" ng-click="liveVideo(false)" id="but2"><span class="ion-ios-eye-outline icon-bigger"></span></button>
                     </div>
-                    <div class="col span-1-of-3">
+                    <div class="col span-2-of-7">
                         <button class="button-wide" ng-click="captureImage()" id="but5"><span class="ion-ios-camera-outline icon-bigger"></span></button>
                     </div>
-                    <div class="col span-1-of-3">
+                    <div class="col span-2-of-7">
                         <a href="#/images" target="_blank"><button class="button-wide"><span class="ion-ios-albums-outline icon-bigger"></span></button></a>
                     </div>
-                </div>
-            </div>
-
-
-            <!-- Image Retrieval -->
-            <div class="row">
-                <p>Download Images</p>
-            </div>
-            <div class="row download clearfix">
-                <div class="col span-1-of-2">
-                    <button class="button-wide dl" id="download-images" ng-click="downloadImages()">Singles</button>
-                </div>
-                <div class="col span-1-of-2">
-                    <button class="button-wide dl" id="download-timelapse" ng-click="downloadTimeLapse()">Time Lapse</button>
                 </div>
             </div>
         </div>
@@ -355,3 +305,57 @@
 
     </script>
 </div>
+
+
+ <!--  UNUSED CODE ----------------------------------------------------------------
+
+  --- FOCUS WITH FINE/COARSE FOCUS TOGGLE
+
+                <div class="row clearfix focus" id="focus-fine">
+                    <div class="icon-box">
+                            <i class="ion-qr-scanner icon-small"></i>
+                    </div>
+                    <div class="icon-box">
+                        <button class="button" onmousedown="focusMove('1Q')" onmouseup="focusStop('W')"><span class="ion-ios-arrow-up icon-big"></span></button>
+                    </div>
+                    <div class="icon-box slider">
+                        <div ng-click="changeFocus()">
+                            <p>
+                                {{focusMode}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button class="button" onmousedown="focusMove('2Q')" onmouseup="focusStop('W')"><span class="ion-ios-arrow-down icon-big"></span></button>
+                    </div>
+                </div>
+                <div class="row" id="focus-course" style="display: none;">
+                    <div class="">
+                        <button class="button" onmousedown="focusMove('3Q')" onmouseup="focusStop('W')"></button>
+                    </div>
+                    <div class="">
+                        <div ng-click="changeFocus()">
+                            <p>
+                                {{focusMode}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button class="button" onmousedown="focusMove('4Q')" onmouseup="focusStop('W')"></button>
+                    </div>
+                </div>
+
+ --- Image Retrieval
+            <div class="row">
+                <p>Download Images</p>
+            </div>
+            <div class="row download clearfix">
+                <div class="col span-1-of-2">
+                    <button class="button-wide dl" id="download-images" ng-click="downloadImages()">Singles</button>
+                </div>
+                <div class="col span-1-of-2">
+                    <button class="button-wide dl" id="download-timelapse" ng-click="downloadTimeLapse()">Time Lapse</button>
+                </div>
+            </div>
+
+    -->

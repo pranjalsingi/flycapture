@@ -158,43 +158,53 @@ io.on('connection', function (socket) {
 		console.log("Request to download images");
 		console.log("incoming", req.body);
 		var files = req.body;
-		fs.mkdirSync('./tempImages');
+		fs.mkdirSync('/root/flycapture/tempImages');
 
 		function callback(){
-			exec('zip -r /root/flycapture/tempImages.zip /root/flycapture/tempImages/', function(err, stdo, stde){
-				if(err != null){
-								console.log('temp Images Zip didn\'t generated' +err)
-									res.status(404).end();
-				}
-				else {
-					var file = __dirname + '/tempImages.zip';
-					rimraf('./tempImages', function () { 
-						console.log('done removing temp'); 
-					});
+			try{
+				fs.unlinkSync('/root/flycapture/tempImages.zip');
+			}
+			catch(err){
+				console.log(err);
+			}
+			finally{
+				exec('zip -rj /root/flycapture/tempImages.zip /root/flycapture/tempImages/', function(err, stdo, stde){
+					if(err != null){
+						console.log('temp Images Zip didn\'t generated' +err)
+						res.status(404).end();
+					}
+					else {
+						//var file = __dirname + '/tempImages.zip';
+						rimraf('/root/flycapture/tempImages', function () { 
+							console.log('done removing temp'); 
+						});
 
-					var d = new Date();
-					var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
-					/*res.download('./tempImages.zip', name, function(err){
-						if(err){
-							console.log("error occured in downlading");
-						}
-						else{
-							console.log(res.headersSent);
-						}
-					});*/
-					/*res.attachment(file);
-					var filestream = fs.createReadStream(file);
-					filestream.pipe(res);*/
-					res.json();
-				}
-			});
+						/*
+						var d = new Date();
+						var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
+						res.download('/root/flycapture/tempImages.zip', name, function(err){
+							if(err){
+								console.log("error occured in downlading");
+							}
+							else{
+								console.log(res.headersSent);
+							}
+						});
+						res.attachment(file);
+						var filestream = fs.createReadStream(file);
+						filestream.pipe(res);
+						*/
+						res.json();
+					}
+				});
+			}
 		}
 
 		var counter = 0;
 		files.forEach(function(file){
 			var changedName = file+'.tiff';
-			var targetFile = 'tempImages/'+changedName;
-			var sourceFile = 'images/'+changedName;
+			var targetFile = '/root/flycapture/tempImages/'+changedName;
+			var sourceFile = '/root/flycapture/images/'+changedName;
 			fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
 			counter++;
 			if(counter == files.length){callback();}
@@ -208,8 +218,8 @@ io.on('connection', function (socket) {
 		files.forEach(function(file){
 			var changedTiff = file+'.tiff';
 			var changedPng = file+'.png';
-			fs.unlinkSync('./images/'+changedTiff);
-			fs.unlinkSync('./thumbnail/'+changedPng);
+			fs.unlinkSync('/root/flycapture/images/'+changedTiff);
+			fs.unlinkSync('/root/flycapture/thumbnail/'+changedPng);
 		});
 		res.json();
 	});
@@ -218,7 +228,7 @@ io.on('connection', function (socket) {
 		console.log("Request to download image zip");
 		var d = new Date();
 		var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
-		res.download('./tempImages.zip', name);
+		res.download('/root/flycapture/tempImages.zip', name);
         });
 
 

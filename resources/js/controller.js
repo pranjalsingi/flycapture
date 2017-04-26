@@ -149,6 +149,29 @@
 		});
 
 		$scope.add_remove_files = {};
+		$scope.select_text = "Select all";
+
+		$scope.change_select_text = function(){
+			if($scope.select_text === "Select all"){
+				$scope.add_remove_files = {};
+				$scope.filenames.forEach(function(filename){
+					var id = filename.substring(0, filename.indexOf('.'))
+					var element = document.getElementById(id);
+					element.classList.add("img-selected-border");
+					$scope.add_remove_files[id] = id;
+				});
+				$scope.select_text = "Unselect all";
+			}
+			else{
+				$scope.add_remove_files = {};
+				$scope.filenames.forEach(function(filename){
+					var id = filename.substring(0, filename.indexOf('.'))
+					var element = document.getElementById(id);
+					element.classList.remove("img-selected-border");
+				});
+				$scope.select_text = "Select all";
+			}
+		}
 
 		$scope.select_deselect = function(filename){
 			var id = filename.substring(0, filename.indexOf('.'))
@@ -165,22 +188,31 @@
 
 		$scope.download_images = function(){
 			console.log(Object.keys($scope.add_remove_files));
-			$http.post('/api/downloadImages', Object.keys($scope.add_remove_files))
-				.success(function(data){
-					console.log("got back");
-					var win = window.open('/api/imageZip','','width=, height=, resizable=no');
-					win.resizeTo(0,0);
-					win.moveTo(0,window.screen.availHeight+10);
-					win.close();
-				})
+			if(Object.keys($scope.add_remove_files).length != 0){
+				$http.post('/api/downloadImages', Object.keys($scope.add_remove_files))
+					.success(function(data){
+						console.log("got back");
+						var win = $window.open('/api/imageZip','','width=, height=, resizable=no');
+						//win.resizeTo(0,0);
+						//win.moveTo(0,window.screen.availHeight+10);
+					})
+			}
+			else{
+				alert("Please select an image");
+			}
 		};
 
 		$scope.delete_images = function(){
-			$http.post('/api/deleteImages', Object.keys($scope.add_remove_files))
-				.success(function(data){
-					console.log("deleted the images");
-					$window.location.reload();
-				})
+			if(Object.keys($scope.add_remove_files).length != 0){
+				$http.post('/api/deleteImages', Object.keys($scope.add_remove_files))
+					.success(function(data){
+						console.log("deleted the images");
+						$window.location.reload();
+					})
+			}
+			else{
+				alert("Please select an image");
+			}
 		};
 
 	}]);

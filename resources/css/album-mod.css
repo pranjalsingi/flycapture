@@ -34,7 +34,7 @@ p {
     font-size: 18px;
     padding-left: 40px;
     margin-top: 34px;
-    text-shadow: 2px 1px 4px rgba(178, 178, 178, 0.8)
+/*    text-shadow: 2px 1px 4px rgba(178, 178, 178, 0.8)*/
 }
 
 p.small {
@@ -44,7 +44,8 @@ p.small {
     text-align: center;
     padding: 0;
     color: #3d3d3d;
-    text-shadow: none
+/*    text-shadow: none;*/
+    cursor: pointer;
 }
 
 .icon-small {
@@ -52,6 +53,12 @@ p.small {
     display: block;
     color: #3d3d3d;
     margin-top: 30px;
+    cursor: pointer;
+}
+
+.icon-small:hover,
+p.small:hover {
+    color:blue;
 }
 
 .icon-box {
@@ -111,47 +118,10 @@ a img {
 }
 
 .img-selected-border {
-	border: 3px solid blue;
+	 border: 3px solid blue;
+
 }
 
-/* Tooltips --------------------------------------*/
-/* -----------------------------------------------*/
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 100px;
-    background-color: #333;
-    opacity: .9;
-    color: #fff;
-    font-size: 13px;
-    text-align: center;
-    border-radius: 2px;
-    padding: 3px 0;
-    position: absolute;
-    z-index: 2;
-    top: 110%;
-    left: 65%;
-    margin-left: -60px;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent #333 transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-}
 
 

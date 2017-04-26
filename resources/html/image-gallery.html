@@ -15,23 +15,23 @@
 <body>
     <div class="row">
         <div class="navi">
-            <div class="col span-7-of-12 ">
+            <div class="col span-6-of-12 ">
                 <p>Robert - Images - April 17, 2017</p>
             </div>
-            <div class="col span-1-of-12 icon-box">
-                <p class="small ">Select all</p>
+            <div class="col span-2-of-12 icon-box">
+                <p class="small " ng-click="change_select_text()">{{select_text}}</p>
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
                 <i class="ion-ios-cloud-download-outline icon-small" ng-click="download_images()"></i>
-                <span class="tooltiptext">Download Images</span>
+<!--                <span class="tooltiptext">Download Images</span>-->
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
                 <i class="ion-ios-trash-outline icon-small" ng-click="delete_images()"></i>
-                <span class="tooltiptext">Trash images</span>
+<!--                <span class="tooltiptext">Trash images</span>-->
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
                 <i class="ion-ios-camera-outline icon-small" onclick="window.open('/index-acqui.html')"></i>
-                <span class="tooltiptext">Back to Acquisition</span>
+<!--                <span class="tooltiptext">Back to Acquisition</span>-->
             </div>
             <div class="col span-1-of-12 icon-box">
                 <img src="resources/img/Dragon_logo.ico" alt="BD Logo" />
@@ -40,7 +40,21 @@
     </div>
     <div class="row clearfix">
         <div class="gallery">
-<!--
+
+            <!--		<span class="closed">+</span>-->
+            <a tabindex="1"  ng-repeat="filename in filenames" ondblclick="console.log('hi')" >
+                <img src="/./../thumbnail/{{filename}}" id="{{filename.substring(0, filename.indexOf('.'))}}" ng-click="select_deselect(filename)" />
+            </a>
+            <span class="closed-layer"></span>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<!--  UNUSED CODE ---------------------------------------------------'
+    GALLERY IMAGES
             <a tabindex="1"><img src="resources/img/gallery/BRINE%20SHRIMP%2020X%20II.png"></a>
             <a tabindex="1"><img src="resources/img/gallery/BRINE%20SHRIMP%20GREEN%2020X%20I.png"></a>
             <a tabindex="1"><img src="resources/img/gallery/DIATOMES%2020X%20I.png"></a>
@@ -69,13 +83,3 @@
             <a tabindex="1"><img src="resources/img/gallery/RABBIT%20TONGUE%2020X%20III.png"></a>
             <a tabindex="1"><img src="resources/img/gallery/RABBIT%20TONGUE%2020X%20IV.png"></a>
 -->
-            <!--		<span class="closed">+</span>-->
-            <a tabindex="1"  ng-repeat="filename in filenames" ondblclick="console.log('hi')" >
-                <img src="/./../thumbnail/{{filename}}" id="{{filename.substring(0, filename.indexOf('.'))}}" ng-click="select_deselect(filename)" />
-            </a>
-            <span class="closed-layer"></span>
-        </div>
-    </div>
-</body>
-
-</html>
