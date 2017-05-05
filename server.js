@@ -17,7 +17,9 @@ flag = false;
 var serialPort;
 var portName = '/dev/ttyACM0';
 var dirn = 'thumbnail';
+var ti;
 //var cameraNo = '16401446';
+//var cameraNo = '17085813';
 var cameraNo = '17042613';
 
 app.use(bodyParser.urlencoded({extended: true})); app.use(bodyParser.json()); 
@@ -80,7 +82,8 @@ io.on('connection', function (socket) {
 		}
 		else{
 			t = stopLiveVideo()
- 			/*exec('bin/VideoImageEx', function(err, stdo, stde){
+ 			/*
+				exec('bin/VideoImageEx', function(err, stdo, stde){
                                         if(err != null){
                                                 console.log('Image didn\'t generated' +err)
                                         }
@@ -90,7 +93,8 @@ io.on('connection', function (socket) {
                                                 pingClient(temp);
                                         }
                                 });
-			console.log(t)*/
+				console.log(t)
+			*/
 			//Return message if t is false
 			//res.status(400).send({message: 'Camera didn\'t started'});
 			res.json();
@@ -107,7 +111,7 @@ io.on('connection', function (socket) {
 			if(flag){
 				t = stopLiveVideo();
 			}
-			var ti = setInterval(function(){timeLapse(repeat)}, secInter);
+			ti = setInterval(function(){timeLapse(repeat)}, secInter);
 			temp = repeat
 			timeLapse = function(repeat){
 				//serialPort.write(intensity + "S");

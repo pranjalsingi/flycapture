@@ -1,4 +1,51 @@
 /* --------------------------------*/
+/* Fonts */
+/* --------------------------------*/
+
+/* montserrat-100 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Thin.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Thint.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Thin.ttf') format('truetype');
+}
+
+/* montserrat-200 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf') format('truetype');
+}
+
+/* montserrat-300 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Light.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Light.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Light.ttf') format('truetype');
+}
+
+/* montserrat-regular - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+
+
+
+/* --------------------------------*/
 /*General Style */
 /* --------------------------------*/
 * {
@@ -11,8 +58,8 @@
 html {
     background-color: #fff;
     color: #444;
-    font-family: 'Libre Franklin', sans-serif;
-    font-weight: 200;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     font-size: 20px;
     text-rendering: optimizeLegibility;
 }
@@ -49,7 +96,7 @@ html {
     max-height: 97vh;
     margin-left: 10px;
     float: left;
-    box-shadow: 2px 3px 5px #333;
+    box-shadow: 2px 3px 8px #333;
 }
 
 
@@ -77,13 +124,14 @@ html {
     border: none;
     border-radius: 50%;
     display: inline-block;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     font-size: 60%;
     height: 36px;
     width: 36px;
     box-shadow: 0px 1px 2px #b4b4b4;
     background: linear-gradient(to bottom right, #efefef ,#fff); 
-    padding-top: 2px;
+    padding-top: 0px;
     text-align: center;
 }
 
@@ -149,13 +197,22 @@ p {
 }
 
 .tl-input input[type='number']{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     width: 50%;
     display: inline!important;
     background: #F9F9F9;
-    font-size: 80%;
+    font-size: 60%;
     line-height: 1.8;
     padding: 4px;
     float: left;
+    text-align: right;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 

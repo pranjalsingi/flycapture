@@ -119,12 +119,12 @@
             </div>
 
             <!-- Time Lapse -->
-            <div class="row clearfix time-lapse" id="startvc">
+            <div class="row clearfix time-lapse">
                 <div>
-                    <p>Time Lapse</p>
+                    <h5>Time Lapse</h5>
                 </div>
 
-                <div class="row tl-input">
+                <div class="row tl-input" id="startvc">
                     <div class="col span-2-of-5">
                         <i class="ion-ios-timer-outline icon-box"></i>
                         <input type="number" class="form-control" id="text1" ng-model="interval" placeholder="min" min="0.05" step="0.05">
@@ -134,7 +134,7 @@
                             <i class="ion-ios-photos-outline icon-box"></i>
                         </div>
                         <div>
-                            <input type="number" class="form-control" id="text2" ng-model="repeat" placeholder="number" min="2" step="1">
+                            <input type="number" class="form-control" id="text2" ng-model="repeat" placeholder="#" min="2" step="1">
                         </div>
                     </div>
                     <div class="col span-1-of-5 icon-box">
@@ -143,14 +143,12 @@
                 </div>
 
                 <div class="row" id="stopvc" style="display:none">
-                    <!-- <div class="col-md-4">
-						<label for="but4" id="lab1">Stop Lapse</label>
-						<button class="btn btn-primary" ng-click="captureVideo(false)" id="but4">Stop Lapse</button>
-					</div> -->
-                    <div class="">
-                        <label></label>
-                        <h4 id="lapse-info">Remaining images: {{repeat}} | Time: {{interval * repeat}} minutes</h4>
+                    <div class="col span-4-of-5">
+			<p id="lapse-info">Remaining images: {{repeat}} <br> Time: {{interval * repeat}} minutes</p>
                     </div>
+		    <div class="col span-1-of-5">
+			<button class="button highlight" ng-click="captureVideo(false)" id="but4"><i class="ion-ios-pause-outline icon-bigger"></i></button>
+		    </div>
                 </div>
             </div>
 
@@ -280,7 +278,8 @@
                 var rem_images = data.temp;
                 var interval = document.getElementById('text1').value;
                 var rem_time = rem_images * interval;
-                document.getElementById('lapse-info').innerHTML = "Remaining images: " + rem_images + " | Time: " + rem_time + " minutes";
+		console.log(rem_time);
+                document.getElementById('lapse-info').innerHTML = "Remaining images: " + rem_images + " <br> Time: " + rem_time + " minutes";
                 //initial();
             }
         });

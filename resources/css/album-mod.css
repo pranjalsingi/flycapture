@@ -1,9 +1,58 @@
+/* --------------------------------*/
+/* Fonts */
+/* --------------------------------*/
+
+/* montserrat-100 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Thin.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Thint.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Thin.ttf') format('truetype');
+}
+
+/* montserrat-200 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-ExtraLight.ttf') format('truetype');
+}
+
+/* montserrat-300 - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Light.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Light.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Light.ttf') format('truetype');
+}
+
+/* montserrat-regular - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf');  
+  src: url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf') format('ttf'),
+       url('/vendors/fonts/google-fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+
+/* --------------------------------*/
+/* General */
+/* --------------------------------*/
+
 html,
 body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: "Montserrat";
+    font-family: 'Montserrat';
     font-weight: 200;
 
     text-rendering: optimizeLegibility;
@@ -23,23 +72,22 @@ body {
 
 .navi {
     display: inline-block;
-    height: 80px;
+    height: 85px;
     float: left;
     width: 95%;
-    margin-right: 40px;
+    margin: 0 3%;
     overflow: hidden;
+/*    background-color: #f8f8f8;*/
 }
 
 p {
     font-size: 18px;
-    padding-left: 40px;
     margin-top: 34px;
 /*    text-shadow: 2px 1px 4px rgba(178, 178, 178, 0.8)*/
 }
 
 p.small {
     font-size: 17px;
-    font-weight: 200;
     margin-top: 35px;
     text-align: center;
     padding: 0;
@@ -58,7 +106,7 @@ p.small {
 
 .icon-small:hover,
 p.small:hover {
-    color:blue;
+    color: #024cc1;
 }
 
 .icon-box {
@@ -69,7 +117,7 @@ p.small:hover {
 .navi img {
     width: 40px;
     height: 40px;
-    margin-top: 26px;
+    margin-top: 20px;
 }
 
 /* Gallery Row -----------------------------------*/
@@ -77,9 +125,11 @@ p.small:hover {
 
 .gallery {
     margin: 10px 0;
-    padding: 0 0 0 40px;
+    padding: 0px 0 0 0px;
     overflow: auto;
-    height: 80vh;
+    height: 83vh;
+/*    background-color: #f8f8f8;*/
+    margin: 0 3%;
 }
 
 a {
@@ -101,7 +151,7 @@ a img {
     top: 0px;
     left: 0px;
     //cursor: pointer;
-    box-shadow: 2px 2px 4px 0px #c3c3c3;
+    box-shadow: 2px 2px 4px 0px #8d8d8d;
     user-select: none;
 }
 
@@ -118,8 +168,9 @@ a img {
 }
 
 .img-selected-border {
-	 border: 3px solid blue;
-
+    border: 2px solid #024cc1;
+    box-shadow: 3px 3px 4px 0px #b1b1b1;
+/*    transition: 0.2s;*/
 }
 
 

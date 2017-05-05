@@ -1,27 +1,27 @@
 'use strict'; angular.module('microscope')
     .controller('LedController', ['$scope', '$http', function($scope, $http){
-	$scope.stat = {value: 0};	$scope.blueval = 100;
+	$scope.stat = {value: 0};	
+	$scope.blueval = 100;
 	$scope.greenval = 500;
 	$scope.focusMode = 'FINE';
 
-	/*but1 = document.getElementById('but1');
-	but2 = document.getElementById('but2');
-	but3 = document.getElementById('but3');
-	but4 = document.getElementById('but4');
-	but5 = document.getElementById('but5');
-	text1 = document.getElementById('text1');
-	text2 = document.getElementById('text2');
-	lv = document.getElementById('live-video');
-	sv = document.getElementById('stop-video');
-	startvc = document.getElementById('startvc');
-	stopvc = document.getElementById('stopvc');
-	*/
+	var but1 = document.getElementById('but1');
+	var but2 = document.getElementById('but2');
+	var but3 = document.getElementById('but3');
+	var but4 = document.getElementById('but4');
+	var but5 = document.getElementById('but5');
+	var text1 = document.getElementById('text1');
+	var text2 = document.getElementById('text2');
+	var lv = document.getElementById('live-video');
+	var sv = document.getElementById('stop-video');
+	var startvc = document.getElementById('startvc');
+	var stopvc = document.getElementById('stopvc');
 
 	$scope.initial = function(){
-		document.getElementById('but3').disabled = true;
-		document.getElementById('but5').disabled = true;
-		document.getElementById('text1').disabled = true;
-		document.getElementById('text2').disabled = true;
+		but3.disabled = true;
+		but5.disabled = true;
+		text1.disabled = true;
+		text2.disabled = true;
 	};
 
 	$scope.initial();
@@ -77,16 +77,22 @@
 				if(status){
 					document.getElementById("startvc").style.display = "none";
 					document.getElementById("stopvc").style.display = "";
-					document.getElementById('live-video').style.display = "none";
-					document.getElementById('but2').disabled = true;
+					document.getElementById('live-video').style.display = "";
+					document.getElementById('stop-video').style.display = "none";
+					document.getElementById('but1').disabled = true;
 					document.getElementById('but5').disabled = true;
 				}
 				else{
+					console.log("came in satus false");
 					document.getElementById("startvc").style.display = "";
 					document.getElementById("stopvc").style.display = "none";
 					document.getElementById('live-video').style.display = "";
 					document.getElementById('stop-video').style.display = "none";
+					document.getElementById('but1').disabled = false;
 					document.getElementById('but5').disabled = true;
+					document.getElementById('text1').disabled = true;
+					document.getElementById('text2').disabled = true;
+					document.getElementById('but3').disabled = true;
 				}
 			},
 			function errorCallback(response){
@@ -110,15 +116,16 @@
 	};
 
 	$scope.downloadImages = function(){
-		var win = window.open('/api/downloadImages','','width=, height=, resizable=no');
-                win.resizeTo(0,0);
-                win.moveTo(0,window.screen.availHeight+10);
-	};
-
-	$scope.downloadTimeLapse = function(){
-		var win = window.open('/api/downloadTimeLapse','','width=, height=, resizable=no');
-		win.resizeTo(0,0);
-		win.moveTo(0,window.screen.availHeight+10);
+        var win = window.open("http://192.168.1.4/#/images", 'myTab');  
+//		var win = window.open('/api/downloadImages','','width=, height=, resizable=no');
+//                win.resizeTo(0,0);
+//                win.moveTo(0,window.screen.availHeight+10);
+//	};
+//
+//	$scope.downloadTimeLapse = function(){
+//		var win = window.open('/api/downloadTimeLapse','','width=, height=, resizable=no');
+//		win.resizeTo(0,0);
+//		win.moveTo(0,window.screen.availHeight+10);
 	};
 
 	$scope.changeFocus = function(){
@@ -150,6 +157,8 @@
 
 		$scope.add_remove_files = {};
 		$scope.select_text = "Select all";
+		var d = new Date();
+		$scope.current_date = d.toDateString();
 
 		$scope.change_select_text = function(){
 			if($scope.select_text === "Select all"){

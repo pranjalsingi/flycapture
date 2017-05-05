@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="vendors/css/grid.css">
     <link rel="stylesheet" type="text/css" href="vendors/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/album-mod.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600" rel="stylesheet">
     <link rel="shortcut icon" type="x-icon" href="resources/img/gallery/Dragon_logo.ico" />
     <title>Fire Images</title>
 </head>
@@ -15,23 +14,17 @@
 <body>
     <div class="row">
         <div class="navi">
-            <div class="col span-6-of-12 ">
-                <p>Robert - Images - April 17, 2017</p>
+            <div class="col span-7-of-12 ">
+                <p>Robert - Images - {{current_date}}</p>
             </div>
             <div class="col span-2-of-12 icon-box">
                 <p class="small " ng-click="change_select_text()">{{select_text}}</p>
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
                 <i class="ion-ios-cloud-download-outline icon-small" ng-click="download_images()"></i>
-<!--                <span class="tooltiptext">Download Images</span>-->
             </div>
             <div class="col span-1-of-12 icon-box tooltip">
                 <i class="ion-ios-trash-outline icon-small" ng-click="delete_images()"></i>
-<!--                <span class="tooltiptext">Trash images</span>-->
-            </div>
-            <div class="col span-1-of-12 icon-box tooltip">
-                <i class="ion-ios-camera-outline icon-small" onclick="window.open('/index-acqui.html')"></i>
-<!--                <span class="tooltiptext">Back to Acquisition</span>-->
             </div>
             <div class="col span-1-of-12 icon-box">
                 <img src="resources/img/Dragon_logo.ico" alt="BD Logo" />
