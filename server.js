@@ -19,8 +19,8 @@ var portName = '/dev/ttyACM0';
 var dirn = 'thumbnail';
 var ti;
 //var cameraNo = '16401446';
-//var cameraNo = '17085813';
-var cameraNo = '17042613';
+var cameraNo = '17085813';
+//var cameraNo = '17042613';
 
 app.use(bodyParser.urlencoded({extended: true})); app.use(bodyParser.json()); 
 app.use(express.static(__dirname));
@@ -28,7 +28,7 @@ app.use(express.static(__dirname));
 io.on('connection', function (socket) {
 	liveVideo = function(){
 		flag = true
-		exec('/root/flycapture/bin/BinnedImageEx', function(err, stdo, stde){
+		exec('./bin/BinnedImageEx', function(err, stdo, stde){
 			if(err != null){
 				console.log("Error is " + err);
 				return false
@@ -56,15 +56,15 @@ io.on('connection', function (socket) {
 			}
 			else
 			{
-				exec('/root/flycapture/bin/VideoImageEx', function(err, stdo, stde){
+				exec('./bin/VideoImageEx', function(err, stdo, stde){
 					if(err != null){
 						console.log('Image didn\'t generated' +err)
 					}
 					else {
 						var d = Date.now()
-						fs1.renameSync('/root/flycapture/images/'+cameraNo+'-0.tiff', '/root/flycapture/images/'+d+'.tiff')
-						exec('/root/flycapture/bin/BinnedImageEx', function(err, stdo, stde){});
-						exec('convert -thumbnail 200 /root/flycapture/images/'+d+'.tiff /root/flycapture/thumbnail/'+d+'.png');
+						fs1.renameSync('./images/'+cameraNo+'-0.tiff', './images/'+d+'.tiff')
+						exec('./bin/BinnedImageEx', function(err, stdo, stde){});
+						exec('convert -thumbnail 200 ./images/'+d+'.tiff ./thumbnail/'+d+'.png');
 					}
 				});
 			}
@@ -115,12 +115,12 @@ io.on('connection', function (socket) {
 			temp = repeat
 			timeLapse = function(repeat){
 				//serialPort.write(intensity + "S");
-				exec('/root/flycapture/bin/VideoImageEx', function(err, stdo, stde){
+				exec('./bin/VideoImageEx', function(err, stdo, stde){
 					if(err != null){
 						console.log('Image didn\'t generated' +err)
 					}
 					else {
-						fs1.renameSync('/root/flycapture/images/'+cameraNo+'-0.tiff', '/root/flycapture/timelapse/'+Date.now()+'.tiff')
+						fs1.renameSync('./images/'+cameraNo+'-0.tiff', './timelapse/'+Date.now()+'.tiff')
 						//serialPort.write("0S");
 						temp--;
 						pingClient(temp);
@@ -128,18 +128,8 @@ io.on('connection', function (socket) {
                                        			clearInterval(ti);
                                 			pingClient("over");
                                 		}
-
-                                		console.log("hello "+temp);
 					}
 				});
-
-				/*if(temp == 0){
-					clearInterval(ti);
-					pingClient("over");
-				}
-
-				console.log("hello "+temp);
-				temp--;*/
 			}
 		}
 		else{
@@ -162,24 +152,24 @@ io.on('connection', function (socket) {
 		console.log("Request to download images");
 		console.log("incoming", req.body);
 		var files = req.body;
-		fs.mkdirSync('/root/flycapture/tempImages');
+		fs.mkdirSync('./tempImages');
 
 		function callback(){
 			try{
-				fs.unlinkSync('/root/flycapture/tempImages.zip');
+				fs.unlinkSync('./tempImages.zip');
 			}
 			catch(err){
 				console.log(err);
 			}
 			finally{
-				exec('zip -rj /root/flycapture/tempImages.zip /root/flycapture/tempImages/', function(err, stdo, stde){
+				exec('zip -rj ./tempImages.zip ./tempImages/', function(err, stdo, stde){
 					if(err != null){
 						console.log('temp Images Zip didn\'t generated' +err)
 						res.status(404).end();
 					}
 					else {
 						//var file = __dirname + '/tempImages.zip';
-						rimraf('/root/flycapture/tempImages', function () { 
+						rimraf('./tempImages', function () { 
 							console.log('done removing temp'); 
 						});
 
@@ -207,8 +197,8 @@ io.on('connection', function (socket) {
 		var counter = 0;
 		files.forEach(function(file){
 			var changedName = file+'.tiff';
-			var targetFile = '/root/flycapture/tempImages/'+changedName;
-			var sourceFile = '/root/flycapture/images/'+changedName;
+			var targetFile = './tempImages/'+changedName;
+			var sourceFile = './images/'+changedName;
 			fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
 			counter++;
 			if(counter == files.length){callback();}
@@ -222,8 +212,8 @@ io.on('connection', function (socket) {
 		files.forEach(function(file){
 			var changedTiff = file+'.tiff';
 			var changedPng = file+'.png';
-			fs.unlinkSync('/root/flycapture/images/'+changedTiff);
-			fs.unlinkSync('/root/flycapture/thumbnail/'+changedPng);
+			fs.unlinkSync('./images/'+changedTiff);
+			fs.unlinkSync('./thumbnail/'+changedPng);
 		});
 		res.json();
 	});
@@ -232,13 +222,13 @@ io.on('connection', function (socket) {
 		console.log("Request to download image zip");
 		var d = new Date();
 		var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
-		res.download('/root/flycapture/tempImages.zip', name);
+		res.download('./tempImages.zip', name);
         });
 
 
 	app.get('/api/downloadTimeLapse', function(req, res){
 		console.log("Request to download time lapse");
-                exec('zip -r /root/flycapture/timelapse.zip /root/flycapture/timelapse/', function(err, stdo, stde){
+                exec('zip -r ./timelapse.zip ./timelapse/', function(err, stdo, stde){
                                         if(err != null){
                                                 console.log('Timelapse Zip didn\'t generated' +err)
                                                 res.status(404).end();
@@ -257,7 +247,7 @@ io.on('connection', function (socket) {
 	var imageName = '';
 
 	// Watching the directory bin for changes of file
-	fs.watch('/root/flycapture/generate/', function(event, filename){
+	fs.watch('./generate/', function(event, filename){
 		// When the file changes, it will run the if condition
     		if (filename != imageName){
       			// Change the imageName to filename and emit with help of socket
@@ -268,7 +258,7 @@ io.on('connection', function (socket) {
 	});
 
   	var uploadImage = function(){
-		fs.readFile('/root/flycapture/generate/'+previousImage, 'base64', function(err, buf){
+		fs.readFile('./generate/'+previousImage, 'base64', function(err, buf){
 			socket.emit('image upload', { image: true, buffer: buf });
 		});
   	};
@@ -322,15 +312,15 @@ io.on('connection', function (socket) {
 });
 
 //this is where we actually turn to the outside world.  You'll need //to adjust if you are on some other server. 
-server.listen(process.env.PORT || 80, "192.168.1.4", function(){
+server.listen(80, "192.168.1.4", function(){
   	var addr = server.address();
   	console.log("Magic happens at", addr.address + ":" + addr.port);
 
 	// Initialize serialPort
-	serialPort = new SerialPort(portName, {
+	/*serialPort = new SerialPort(portName, {
 		baudrate : 9600,
 		dataBits : 8,
 		stopBits : 1,
 		flowControl : false
-	});
+	});*/
 });

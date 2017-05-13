@@ -252,6 +252,15 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: 10px;
 }
 
+.icon-big {
+    position: relative;
+    font-size: 220%;
+    display: block;
+    vertical-align: middle;
+}
+
+
+
 .icon-bigger {
     position: relative;
     font-size: 250%;
