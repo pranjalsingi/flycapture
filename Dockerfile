@@ -12,7 +12,7 @@ RUN apt-get dist-upgrade -y
 
 # Install Node (and some debugging tools)
 RUN apt-get install -y curl vim
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y nodejs
 
 # STEPS 3-5 Install flycapture and dependencies

@@ -312,7 +312,7 @@ io.on('connection', function (socket) {
 });
 
 //this is where we actually turn to the outside world.  You'll need //to adjust if you are on some other server. 
-server.listen(80, "192.168.1.4", function(){
+server.listen(8081, "127.0.0.1", function(){
   	var addr = server.address();
   	console.log("Magic happens at", addr.address + ":" + addr.port);
 
