@@ -1,5 +1,16 @@
 # wireless-microscope
 
+## Running via Docker
+
+* install docker https://docs.docker.com/engine/installation/
+* `cd` to the `flycapture` directory
+* run `docker build -t flycapture .`
+* run `docker run -p 8081:8081 --name app flycapture`
+* visit the server
+* to close the app run `docker stop app && docker rm app`
+
+## Running natively
+
 Step 1: Download Flycapture SDK from https://www.ptgrey.com/support/downloads
 
 	Camera : Chameleon 3, Model : CM3-U3-50S5C-CS, OS : Linux Ubuntu 16.04
