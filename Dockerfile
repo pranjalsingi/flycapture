@@ -38,12 +38,13 @@ RUN dpkg -i /src/flycapture2*/updatorgui*
 #STEP 7: Copy repo files into flycapture folder
 COPY . /src/flycapture2*
 
-#STEP 8: Copy files from cpp to src/CustomImageEx
-COPY cpp /src/CustomImageEx
+#STEP 8: Copy files from cpp to flycapture/src/CustomImageEx
+COPY cpp /src/flycapture2*/src/CustomImageEx
 
-#STEP 9: Run make command in src/CustomImageEx
-WORKDIR /src/CustomImageEx
-RUN make
+#STEP 9: Run make command in flycapture/src/CustomImageEx
+WORKDIR /src/flycapture2*/src/CustomImageEx
+RUN make BASE_NAME=VideoImageEx
+RUN make BASE_NAME=BinnedImageEx
 
 #STEP 10: Run the project
 
