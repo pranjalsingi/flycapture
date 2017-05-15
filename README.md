@@ -51,9 +51,12 @@ Step 6: Change the permission of the flycapture folder so that one can delete or
 
 Step 7: Copy all the files in the repo to the flycapture folder
 
-Step 8: Copy the files from in cpp folder to src/CustomImageEx
+Step 8: Copy the files in cpp folder to src/CustomImageEx
 
-Step 9: Run make command in src/CustomImageEx
+Step 9: Run following command in src/CustomImageEx
+
+	- sudo make BASE_NAME=VideoImageEx
+	- sudo make BASE_NAME=BinnedImageEx
 
 Step 10: Running the project
 	
