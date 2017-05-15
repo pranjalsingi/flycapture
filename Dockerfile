@@ -36,18 +36,20 @@ RUN dpkg -i /src/flycapture2*/flycapture-doc-2*
 RUN dpkg -i /src/flycapture2*/updatorgui*
 
 #STEP 7: Copy repo files into flycapture folder
-COPY . /src/flycapture2*
+COPY . /usr/src/flycapture
 
 #STEP 8: Copy files from cpp to src/CustomImageEx
-COPY cpp /src/CustomImageEx
+COPY cpp/BinnedImageEx.cpp /usr/src/flycapture/src/CustomImageEx
+COPY cpp/VideoImageEx.cpp /usr/src/flycapture/src/CustomImageEx
 
 #STEP 9: Run make command in src/CustomImageEx
-WORKDIR /src/CustomImageEx
-RUN make
+WORKDIR /usr/src/flycapture/src/CustomImageEx
+RUN make BASE_NAME=VideoImageEx
+RUN make BASE_NAME=BinnedImageEx
 
 #STEP 10: Run the project
 
 EXPOSE 8081 
 
 RUN npm install
-RUN npm start
+CMD ["npm", "start"]

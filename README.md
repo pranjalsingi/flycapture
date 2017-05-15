@@ -8,6 +8,7 @@
 * run `docker run -p 8081:8081 --name app flycapture`
 * visit the server
 * to close the app run `docker stop app && docker rm app`
+* to get an interactive shell of the container run `docker run -p 8081:8081 -it --name app flycapture /bin/bash`
 
 ## Running natively
 
