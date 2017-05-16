@@ -22,6 +22,9 @@ var ti;
 var cameraNo = '17085813';
 //var cameraNo = '17042613';
 
+
+
+
 app.use(bodyParser.urlencoded({extended: true})); app.use(bodyParser.json()); 
 app.use(express.static(__dirname));
 
@@ -312,9 +315,9 @@ io.on('connection', function (socket) {
 });
 
 //this is where we actually turn to the outside world.  You'll need //to adjust if you are on some other server. 
-server.listen(8081, "localhost", function(){
+server.listen(8081, function(){
   	var addr = server.address();
-  	console.log("Magic happens at", addr.address + ":" + addr.port);
+  	console.log("Magic happens at", "localhost" + ":" + addr.port);
 
 	// Initialize serialPort
 	/*serialPort = new SerialPort(portName, {

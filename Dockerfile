@@ -53,5 +53,4 @@ EXPOSE 8081
 
 WORKDIR /usr/src/flycapture
 RUN npm install
-#CMD ["npm", "start"]
-CMD ["node", "hello_test.js"]
+CMD ["npm", "start"]
