@@ -47,10 +47,14 @@ WORKDIR /usr/src/flycapture/src/CustomImageEx
 RUN make BASE_NAME=VideoImageEx
 RUN make BASE_NAME=BinnedImageEx
 
+#STEP 10: Remove the blank.txt from image and generate
+WORKDIR /usr/src/flycapture
+RUN rm generate/blank.txt
+RUN rm images/blank.txt 
+
 #STEP 10: Run the project
 
 EXPOSE 8081 
 
-WORKDIR /usr/src/flycapture
 RUN npm install
 CMD ["npm", "start"]

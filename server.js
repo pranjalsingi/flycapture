@@ -19,8 +19,8 @@ var portName = '/dev/ttyACM0';
 var dirn = 'thumbnail';
 var ti;
 //var cameraNo = '16401446';
-var cameraNo = '17085813';
-//var cameraNo = '17042613';
+//var cameraNo = '17085813';
+var cameraNo = '17042613';
 
 
 
@@ -320,10 +320,10 @@ server.listen(8081, function(){
   	console.log("Magic happens at", "localhost" + ":" + addr.port);
 
 	// Initialize serialPort
-	/*serialPort = new SerialPort(portName, {
+	serialPort = new SerialPort(portName, {
 		baudrate : 9600,
 		dataBits : 8,
 		stopBits : 1,
 		flowControl : false
-	});*/
+	});
 });

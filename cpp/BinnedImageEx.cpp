@@ -249,7 +249,7 @@ int main(int /*argc*/, char ** /*argv*/)
         // Create a unique filename
 
         ostringstream filename;
-        filename <<"../generate/"<< camInfo.serialNumber << "-" << imageCount << ".jpg";
+        filename <<"generate/"<< camInfo.serialNumber << "-" << imageCount << ".jpg";
 
         // Save the image. If a file format is not passed in, then the file
         // extension is parsed to attempt to determine the file format.
