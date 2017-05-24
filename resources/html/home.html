@@ -144,11 +144,38 @@
 
                 <div class="row" id="stopvc" style="display:none">
                     <div class="col span-4-of-5">
-			<p id="lapse-info">Remaining images: {{repeat}} <br> Time: {{interval * repeat}} minutes</p>
+			             <p id="lapse-info">Remaining images: {{repeat}} <br> Time: {{interval * repeat}} minutes</p>
                     </div>
-		    <div class="col span-1-of-5">
-			<button class="button highlight" ng-click="captureVideo(false)" id="but4"><i class="ion-ios-pause-outline icon-big"></i></button>
-		    </div>
+        		    <div class="col span-1-of-5">
+        			<button class="button highlight" ng-click="captureVideo(false)" id="but4"><i class="ion-ios-pause-outline icon-big"></i></button>
+        		    </div>
+                </div>
+            </div>
+
+<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+            <!-- Save Movie -->
+            <div class="row clearfix time-lapse">
+                <div>
+                    <p>Movie</p>
+                </div>
+
+                <div class="row tl-input" id="start_movie">
+                    <div class="col span-4-of-5">
+                        <i class="ion-ios-timer-outline icon-box"></i>
+                        <input type="number" class="form-control" id="movie_text1" placeholder="min" min=".1" max="2" step=".1" ng-model="movie_minutes">
+                    </div>
+                    <div class="col span-1-of-5 icon-box">
+                        <button class="button" ng-click="movie(true)" id="movie_start_butt"><i class="ion-ios-play-outline icon-big play "></i></button>
+                    </div>
+                </div>
+
+                <div class="row" id="stop_movie" style="display:none">
+                    <div class="col span-4-of-5">
+                         <p id="lapse-info">Time Remaining: {{movie_minutes * 60}} seconds</p>
+                    </div>
+                    <div class="col span-1-of-5">
+                    <button class="button highlight" ng-click="movie(false)" id="movie_stop_butt"><i class="ion-ios-pause-outline icon-big"></i></button>
+                    </div>
                 </div>
             </div>
 

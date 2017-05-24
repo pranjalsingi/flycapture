@@ -18,6 +18,8 @@ var serialPort;
 var portName = '/dev/ttyACM0';
 var dirn = 'thumbnail';
 var ti;
+var movie_status = false;	// tells if a movie is running or not
+var movie_folder_name;		// saves the name of the new movie folder
 //var cameraNo = '16401446';
 //var cameraNo = '17085813';
 var cameraNo = '17042613';
@@ -128,9 +130,9 @@ io.on('connection', function (socket) {
 						temp--;
 						pingClient(temp);
 						if(temp == 0){
-                                       			clearInterval(ti);
-                                			pingClient("over");
-                                		}
+                       			clearInterval(ti);
+                			pingClient("over");
+                		}
 					}
 				});
 			}
@@ -139,6 +141,35 @@ io.on('connection', function (socket) {
 			clearInterval(ti);
 		}
 		res.json();
+	});
+
+	/* Movie POST Request ----------------------------------------------------------------------------- */
+
+	app.post('/api/movie', function(req, res){
+		var interval = req.body.interval;
+		var secInter = interval * 60 * 1000;
+		var status = req.body.status;
+		if(status){
+			fs.readdirSync('movies', function(err, filenames){
+				if(filenames.length == 0){
+					movie_folder_name = "movie_1";
+				}
+				else{
+					var num = parseInt(filenames.pop().substr(-1));
+					movie_folder_name = "movie_"+ ++num;
+				}
+				fs.mkdirSync('movies/'+movie_folder_name);
+				movie_status = true;
+			})
+			ti = setTimeout(function(){movie_func()}, secInter);
+			var movie_func = function(){
+				movie_status = false;
+			}
+		}
+		else{
+			clearInterval(ti);
+		}
+		res.end();
 	});
 
 	app.get('/api/getImages', function(req, res){
@@ -263,6 +294,9 @@ io.on('connection', function (socket) {
       			// Change the imageName to filename and emit with help of socket
       			previousImage = imageName;
       			imageName = filename;
+      			if(movie_status){
+      				fs.writeFile('movies/'+movie_folder_name+'/'+previousImage, fs.readFile('images/'+previousImage));
+      			}
       			uploadImage();
 		};
 	});
@@ -327,10 +361,10 @@ server.listen(8081, function(){
   	console.log("Magic happens at", "localhost" + ":" + addr.port);
 
 	// Initialize serialPort
-	serialPort = new SerialPort(portName, {
+	/*serialPort = new SerialPort(portName, {
 		baudrate : 9600,
 		dataBits : 8,
 		stopBits : 1,
 		flowControl : false
-	});
+	});*/
 });

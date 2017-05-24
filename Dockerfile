@@ -49,11 +49,12 @@ WORKDIR /usr/src/flycapture/src/CustomImageEx
 RUN make BASE_NAME=VideoImageEx
 RUN make BASE_NAME=BinnedImageEx
 
-#STEP 9: Remove the blank.txt from image and generate
+#STEP 9: Remove the blank.txt from images, generate, thumbnail and movies folder
 WORKDIR /usr/src/flycapture
 RUN rm generate/blank.txt
 RUN rm images/blank.txt 
 RUN rm thumbnail/blank.txt
+RUN rm movies/blank.txt
 
 #STEP 10: Run the project
 

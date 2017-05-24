@@ -16,12 +16,18 @@
 	var sv = document.getElementById('stop-video');
 	var startvc = document.getElementById('startvc');
 	var stopvc = document.getElementById('stopvc');
+	var start_movie = document.getElementById('start_movie');
+	var stop_movie = document.getElementById('stop_movie');
+	//var movie_start_butt = document.getElementById('movie_start_butt');
+	//var movie_stop_butt = document.getElementById('movie_stop_butt');
 
 	$scope.initial = function(){
 		but3.disabled = true;
 		but5.disabled = true;
 		text1.disabled = true;
 		text2.disabled = true;
+		movie_start_butt.disabled = true;
+		movie_text1.disabled = true;
 	};
 
 	$scope.initial();
@@ -114,6 +120,62 @@
 			alert("Enter correct values");
 		}
 	};
+
+	/* --------------------------------------------------------------------------------------------- */
+	// Movie start and stop code
+
+	$scope.movie = function(status){
+		$scope.stat.status = status;
+		$scope.stat.interval = $scope.movie_minutes;
+		if((typeof($scope.movie_minutes) == typeof(2)) && ($scope.movie_minutes >= .1 && $scope.movie_minutes <= 2)){
+			$http.post('/api/movie', $scope.stat).then(
+			function successCallback(response){
+				if(status){
+					start_movie.style.display = "none";
+					stop_movie.style.display = "";
+					// document.getElementById("startvc").style.display = "none";
+					// document.getElementById("stopvc").style.display = "";
+					// document.getElementById('live-video').style.display = "";
+					// document.getElementById('stop-video').style.display = "none";
+					// document.getElementById('but1').disabled = true;
+					// document.getElementById('but5').disabled = true;
+				}
+				else{
+					console.log("came in movie status false");
+					start_movie.style.display = "";
+					stop_movie.style.display = "none";
+					// document.getElementById("startvc").style.display = "";
+					// document.getElementById("stopvc").style.display = "none";
+					// document.getElementById('live-video').style.display = "";
+					// document.getElementById('stop-video').style.display = "none";
+					// document.getElementById('but1').disabled = false;
+					// document.getElementById('but5').disabled = true;
+					// document.getElementById('text1').disabled = true;
+					// document.getElementById('text2').disabled = true;
+					// document.getElementById('but3').disabled = true;
+				}
+			},
+			function errorCallback(response){
+				if(status){
+					document.getElementById("startvc").style.display = "none";
+					document.getElementById("stopvc").style.display = "";
+					document.getElementById('live-video').style.display = "";
+					document.getElementById('stop-video').style.display = "none";
+				}
+				else{
+					document.getElementById("startvc").style.display = "";
+					document.getElementById("stopvc").style.display = "none";
+					document.getElementById('live-video').style.display = "";
+					document.getElementById('stop-video').style.display = "none";
+				}
+			});
+		}
+		else{
+			alert("Enter correct values");
+		}
+	};
+
+	/* --------------------------------------------------------------------------------------------- */
 
 	$scope.downloadImages = function(){
         var win = window.open("http://192.168.1.4/#/images", 'myTab');  
