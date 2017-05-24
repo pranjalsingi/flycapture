@@ -155,57 +155,64 @@ io.on('connection', function (socket) {
 		console.log("Request to download images");
 		console.log("incoming", req.body);
 		var files = req.body;
-		fs.mkdirSync('./tempImages');
-
-		function callback(){
-			try{
-				fs.unlinkSync('./tempImages.zip');
-			}
-			catch(err){
-				console.log(err);
-			}
-			finally{
-				exec('zip -rj ./tempImages.zip ./tempImages/', function(err, stdo, stde){
-					if(err != null){
-						console.log('temp Images Zip didn\'t generated' +err)
-						res.status(404).end();
-					}
-					else {
-						//var file = __dirname + '/tempImages.zip';
-						rimraf('./tempImages', function () { 
-							console.log('done removing temp'); 
-						});
-
-						/*
-						var d = new Date();
-						var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
-						res.download('/root/flycapture/tempImages.zip', name, function(err){
-							if(err){
-								console.log("error occured in downlading");
-							}
-							else{
-								console.log(res.headersSent);
-							}
-						});
-						res.attachment(file);
-						var filestream = fs.createReadStream(file);
-						filestream.pipe(res);
-						*/
-						res.json();
-					}
-				});
-			}
+		try{
+			fs.mkdirSync('./tempImages');
 		}
+		catch(err){
+			console.log(err);
+		}
+		finally{
 
-		var counter = 0;
-		files.forEach(function(file){
-			var changedName = file+'.tiff';
-			var targetFile = './tempImages/'+changedName;
-			var sourceFile = './images/'+changedName;
-			fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
-			counter++;
-			if(counter == files.length){callback();}
-		});
+			function callback(){
+				try{
+					fs.unlinkSync('./tempImages.zip');
+				}
+				catch(err){
+					console.log(err);
+				}
+				finally{
+					exec('zip -rj ./tempImages.zip ./tempImages/', function(err, stdo, stde){
+						if(err != null){
+							console.log('temp Images Zip didn\'t generated' +err)
+							res.status(404).end();
+						}
+						else {
+							//var file = __dirname + '/tempImages.zip';
+							rimraf('./tempImages', function () { 
+								console.log('done removing temp'); 
+							});
+
+							/*
+							var d = new Date();
+							var name = 'images_'+d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+'_'+d.getHours()+'-'+d.getMinutes()+'.zip';
+							res.download('/root/flycapture/tempImages.zip', name, function(err){
+								if(err){
+									console.log("error occured in downlading");
+								}
+								else{
+									console.log(res.headersSent);
+								}
+							});
+							res.attachment(file);
+							var filestream = fs.createReadStream(file);
+							filestream.pipe(res);
+							*/
+							res.json();
+						}
+					});
+				}
+			}
+
+			var counter = 0;
+			files.forEach(function(file){
+				var changedName = file+'.tiff';
+				var targetFile = './tempImages/'+changedName;
+				var sourceFile = './images/'+changedName;
+				fs.writeFileSync(targetFile, fs.readFileSync(sourceFile));
+				counter++;
+				if(counter == files.length){callback();}
+			});
+		}
 	});
 
 	app.post('/api/deleteImages', function(req, res){

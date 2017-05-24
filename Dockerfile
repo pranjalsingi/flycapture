@@ -14,6 +14,8 @@ RUN apt-get dist-upgrade -y
 RUN apt-get install -y curl vim
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y nodejs
+RUN apt-get update && apt-get install -y imagemagick
+RUN apt-get install -y zip
 
 # STEPS 3-5 Install flycapture and dependencies
 # ported from readme and install_flycapture.sh scripts inside flycap tar
@@ -35,22 +37,23 @@ RUN dpkg -i /src/flycapture2*/flycap-2*
 RUN dpkg -i /src/flycapture2*/flycapture-doc-2*
 RUN dpkg -i /src/flycapture2*/updatorgui*
 
-#STEP 7: Copy repo files into flycapture folder
+#STEP 6: Copy repo files into flycapture folder
 COPY . /usr/src/flycapture
 
-#STEP 8: Copy files from cpp to src/CustomImageEx
+#STEP 7: Copy files from cpp to src/CustomImageEx
 COPY cpp/BinnedImageEx.cpp /usr/src/flycapture/src/CustomImageEx
 COPY cpp/VideoImageEx.cpp /usr/src/flycapture/src/CustomImageEx
 
-#STEP 9: Run make command in src/CustomImageEx
+#STEP 8: Run make command in src/CustomImageEx
 WORKDIR /usr/src/flycapture/src/CustomImageEx
 RUN make BASE_NAME=VideoImageEx
 RUN make BASE_NAME=BinnedImageEx
 
-#STEP 10: Remove the blank.txt from image and generate
+#STEP 9: Remove the blank.txt from image and generate
 WORKDIR /usr/src/flycapture
 RUN rm generate/blank.txt
 RUN rm images/blank.txt 
+RUN rm thumbnail/blank.txt
 
 #STEP 10: Run the project
 
