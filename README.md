@@ -5,10 +5,10 @@
 * install docker https://docs.docker.com/engine/installation/
 * `cd` to the `flycapture` directory
 * run `docker build -t flycapture .`
-* run `docker run -p 8081:8081 --name app flycapture`
+* run `docker run -p 8081:8081 --privileged --name app flycapture`
 * visit the server
 * to close the app run `docker stop app && docker rm app`
-* to get an interactive shell of the container run `docker run -p 8081:8081 -it --name app flycapture /bin/bash`
+* to get an interactive shell of the container run `docker run -p 8081:8081 -it --privileged --name app flycapture /bin/bash`
 
 ## Running natively
 
