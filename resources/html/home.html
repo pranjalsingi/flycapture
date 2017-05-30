@@ -171,7 +171,7 @@
 
                 <div class="row" id="stop_movie" style="display:none">
                     <div class="col span-4-of-5">
-                         <p id="lapse-info">Time Remaining: {{movie_minutes * 60}} seconds</p>
+                         <p id="lapse-info">Time : {{movie_minutes * 60}} seconds</p>
                     </div>
                     <div class="col span-1-of-5">
                     <button class="button highlight" ng-click="movie(false)" id="movie_stop_butt"><i class="ion-ios-pause-outline icon-big"></i></button>
@@ -301,7 +301,12 @@
                 document.getElementById('stop-video').style.display = "none";
                 document.getElementById('live-video').style.display = "";
                 document.getElementById('but1').disabled = false;
-            } else {
+		document.getElementById('movie_text1').disabled = true;
+		document.getElementById('movie_start_butt').disabled = true;
+		document.getElementById('stop_movie').style.display = "none";
+                document.getElementById('start_movie').style.display = "";
+            } 
+	    else {
                 var rem_images = data.temp;
                 var interval = document.getElementById('text1').value;
                 var rem_time = rem_images * interval;

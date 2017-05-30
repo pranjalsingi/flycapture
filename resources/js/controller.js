@@ -48,6 +48,8 @@
 				document.getElementById('but5').disabled = false;
 				document.getElementById('text1').disabled = false;
 				document.getElementById('text2').disabled = false;
+				movie_start_butt.disabled = false;
+				movie_text1.disabled = false;
 			}
 			else{
 				document.getElementById('live-video').style.display = "";
@@ -56,6 +58,8 @@
 				document.getElementById('but5').disabled = true;
 				document.getElementById('text1').disabled = true;
 				document.getElementById('text2').disabled = true;
+				movie_start_butt.disabled = true;
+                                movie_text1.disabled = true1;
 
 			}
 
@@ -141,7 +145,6 @@
 					// document.getElementById('but5').disabled = true;
 				}
 				else{
-					console.log("came in movie status false");
 					start_movie.style.display = "";
 					stop_movie.style.display = "none";
 					// document.getElementById("startvc").style.display = "";

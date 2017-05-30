@@ -20,6 +20,7 @@ var dirn = 'thumbnail';
 var ti;
 var movie_status = false;	// tells if a movie is running or not
 var movie_folder_name;		// saves the name of the new movie folder
+var movie_count;			// saves the current movie image number
 //var cameraNo = '16401446';
 //var cameraNo = '17085813';
 var cameraNo = '17042613';
@@ -150,7 +151,12 @@ io.on('connection', function (socket) {
 		var secInter = interval * 60 * 1000;
 		var status = req.body.status;
 		if(status){
-			fs.readdirSync('movies', function(err, filenames){
+			//console.log("inside status");
+			fs1.readdir('movies', function(err, filenames){
+				if(err != null){
+					console.log("Error from read dir" +err);
+				}
+				//console.log("came inside readdirsync function");
 				if(filenames.length == 0){
 					movie_folder_name = "movie_1";
 				}
@@ -159,15 +165,19 @@ io.on('connection', function (socket) {
 					movie_folder_name = "movie_"+ ++num;
 				}
 				fs.mkdirSync('movies/'+movie_folder_name);
+				movie_count = 0;
 				movie_status = true;
-			})
+			});
+			//console.log("outside the read dir sync");
 			ti = setTimeout(function(){movie_func()}, secInter);
 			var movie_func = function(){
 				movie_status = false;
+				pingClient("over");
 			}
 		}
 		else{
 			clearInterval(ti);
+			pingClient("over")
 		}
 		res.end();
 	});
@@ -289,17 +299,34 @@ io.on('connection', function (socket) {
 
 	// Watching the directory bin for changes of file
 	fs.watch('./generate/', function(event, filename){
-		// When the file changes, it will run the if condition
-    		if (filename != imageName){
-      			// Change the imageName to filename and emit with help of socket
-      			previousImage = imageName;
-      			imageName = filename;
-      			if(movie_status){
-      				fs.writeFile('movies/'+movie_folder_name+'/'+previousImage, fs.readFile('images/'+previousImage));
-      			}
-      			uploadImage();
-		};
-	});
+                // When the file changes, it will run the if condition
+                //console.log("Changed : "+filename);
+                if (filename != imageName){
+                        // Change the imageName to filename and emit with help of socket
+                        previousImage = imageName;
+                        //console.log(previousImage);     // this is soo weird. It prints it twice here but if written one down then not.
+                        imageName = filename;
+                        if(movie_status){
+                                movie_status = false;
+                                var tempImageName = previousImage.substr(0, previousImage.indexOf('-')+1)+movie_count+'.jpg';
+                                var writeStream = fs1.createWriteStream('./movies/'+movie_folder_name+'/'+tempImageName);
+                                writeStream.on('close', function(){
+                                        movie_count++;
+                                        movie_status = true;
+                                });
+                                /*fs1.writeFile('movies/'+movie_folder_name+'/'+previousImage, fs1.readFile('generate/'+previousImage), (err) => {
+                                        if(err){
+                                                console.log(err);
+                                        }
+                                        movie_count++;
+                                        movie_status = true;
+                                });*/
+                                fs1.createReadStream('./generate/'+previousImage).pipe(writeStream);
+
+                        }
+                        uploadImage();
+                };
+        });
 
   	var uploadImage = function(){
 		fs.readFile('./generate/'+previousImage, 'base64', function(err, buf){
@@ -361,10 +388,10 @@ server.listen(8081, function(){
   	console.log("Magic happens at", "localhost" + ":" + addr.port);
 
 	// Initialize serialPort
-	/*serialPort = new SerialPort(portName, {
+	serialPort = new SerialPort(portName, {
 		baudrate : 9600,
 		dataBits : 8,
 		stopBits : 1,
 		flowControl : false
-	});*/
+	});
 });
