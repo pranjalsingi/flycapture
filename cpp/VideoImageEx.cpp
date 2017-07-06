@@ -75,7 +75,7 @@ int main(int /*argc*/, char ** /*argv*/)
     //PrintBuildInfo();
 
     const Mode k_fmt7Mode = MODE_0;
-    const PixelFormat k_fmt7PixFmt = PIXEL_FORMAT_MONO8;
+    const PixelFormat k_fmt7PixFmt = PIXEL_FORMAT_RGB8;
     //const int k_numImages = 10;
 
     Error error;
