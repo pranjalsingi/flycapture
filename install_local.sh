@@ -36,11 +36,11 @@ sudo dpkg -i flycapture2*/updatorgui*
 sudo cp -r ~/flycapture/* /usr/src/flycapture/
 
 #STEP 7: Copy files from cpp to src/CustomImageEx
-sudo cp ~/bluedragon/cpp/BinnedImageEx.cpp /usr/src/flycapture/src/CustomImageEx
-sudo cp ~/bluedragon/cpp/VideoImageEx.cpp /usr/src/flycapture/src/CustomImageEx
+sudo cp ~/flycapture/cpp/BinnedImageEx.cpp /usr/src/flycapture/src/CustomImageEx
+sudo cp ~/flycapture/cpp/VideoImageEx.cpp /usr/src/flycapture/src/CustomImageEx
 
 #STEP 8: Run make command in src/CustomImage
-sudo cd /usr/src/flycapture/src/CustomImageEx
+cd /usr/src/flycapture/src/CustomImageEx
 sudo make BASE_NAME=VideoImageEx
 sudo make BASE_NAME=BinnedImageEx
 
